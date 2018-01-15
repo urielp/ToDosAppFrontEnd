@@ -62,8 +62,8 @@
   <div class="col-md-2"></div>
   <div class="col-md-8">
 
-    <div class="todos" *ngIf="todosList">
-      <table class="table">
+    <div class="todos" *ngIf="todolist">
+      <table class="table" *ngIf="editmode">
         <thead class="h">
         <tr class="h">
           <th class="h">Title</th>
@@ -74,9 +74,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="todo" (dblclick)="editTodo(todo)" *ngFor="let todo of todosList">
+        <tr class="todo" (dblclick)="editTodo(todo)" *ngFor="let todo of todolist">
 
-          <ng-container *ngIf="!editTodos.includes(todo); else editTD">
+          <ng-container *ngIf="!editList.includes(todo); else editTD">
             <td>{{todo.title}}</td>
             <td>{{todo.description}}</td>
             <td>{{todo.date | date}}</td>
@@ -126,9 +126,6 @@
         <!--</div>-->
       <!--</div>-->
     <!--</form>-->
-  </div>
-  <div class="col-md-2">
-
   </div>
 </div>
 
