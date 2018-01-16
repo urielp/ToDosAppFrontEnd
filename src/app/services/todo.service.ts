@@ -2,7 +2,7 @@
  * Created by parientu on 1/15/2018.
  */
 
-import ToDo from '../models/todo.model';
+import ToDo from '../AppModels/todo.model';
 import {Observable} from 'rxjs/Rx';
 import {HttpClient,HttpErrorResponse} from '@angular/common/http';
 import {Response} from '@angular/http';
