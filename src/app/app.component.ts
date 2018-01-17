@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {TodoService} from "./services/todo.service";
 import ToDo from "./AppModels/todo.model";
+import {UserService} from "./services/users.service";
+import User from "./AppModels/user.model";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +11,7 @@ import ToDo from "./AppModels/todo.model";
 })
 export class AppComponent implements OnInit{
 
-  constructor(private todoService:TodoService){
+  constructor(private todoService:TodoService,private userService:UserService){
 
   }
 
@@ -25,6 +27,11 @@ export class AppComponent implements OnInit{
         this.todolist=todos;
         console.log(todos);
       })
+  }
+
+  login(user:User){
+
+    this.userService.login(user);
   }
 
   create() {
