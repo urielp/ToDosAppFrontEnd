@@ -29,11 +29,20 @@ export class AppComponent implements OnInit{
       })
   }
 
-  login(user:User){
+  login(user){
 
-    this.userService.login(user);
+    console.log(user);
+    this.userService.login(user).subscribe(data=>{
+      console.log(data);
+    });
   }
+  getUser(user:User){
+    console.log("getUser-app.component");
+    this.userService.getUser(user).subscribe(data=>{
+      console.log(data);
+    });
 
+  }
   create() {
     this.todoService.createTodo(this.newTodo)
       .subscribe((res) => {
