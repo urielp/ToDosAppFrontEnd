@@ -38,7 +38,7 @@ export class UserService {
   login(user):Observable<any>{
     try {
       console.log(`${this.users}/authenticate`);
-      return this.httpClient.post(`${this.users}/authenticate`,{body:user})
+      return this.httpClient.post(`${this.users}/authenticate`,user)
         .map(res=> {
          return res;
         });

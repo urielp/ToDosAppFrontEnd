@@ -33,7 +33,7 @@ export class AppComponent implements OnInit{
 
     console.log(user);
     this.userService.login(user).subscribe(data=>{
-      console.log(data);
+      console.log("Data:" +data);
     });
   }
   getUser(user:User){
