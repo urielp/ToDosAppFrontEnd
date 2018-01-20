@@ -29,11 +29,12 @@ export class AppComponent implements OnInit{
 
   login(user){
 
+    console.log("Starting here- login and getting token");
     console.log(user);
     this.userService.login(user).subscribe(data=>{
       console.log(data);
       localStorage.setItem('token',data.data.data);
-   
+
     });
   }
   getUser(user:User){

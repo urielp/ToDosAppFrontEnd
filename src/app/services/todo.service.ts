@@ -34,7 +34,7 @@ export class TodoService{
     headers.append('x-access-token',localStorage.getItem('token'));
 
     console.log(localStorage.getItem('token'));
-    return this.httpClient.get(this.todoUrl,{headers:headers})
+    return this.httpClient.get(this.todoUrl)
       .map(res=>{
         return res['data'].docs as ToDo[];
       })

@@ -15,19 +15,18 @@ export class AuthInterceptor implements HttpInterceptor {
 
 // Clone the request to add the new header.
    // const authReq = req.clone({ headers: req.headers.set("headerName","headerValue")});
-    const header = new HttpHeaders();
-    header.set('abc','22');
-    const authReq = req.clone({headers :header});
+
+    const authReq = req.clone({ headers: req.headers.set('x-access-token', 'Bearer ' + {}) });
 
     console.log("Sending request with new header now ...");
-    console.log(authReq.headers);
+    console.log(authReq);
 
 //send the newly created request
     return next.handle(authReq)
       .catch((error, caught) => {
 //intercept the respons error and displace it to the console
         console.log("Error Occurred");
-        console.log(error);
+        console.log(error.message);
 //return the error to the method that called it
         return Observable.throw(error);
       }) as any;
