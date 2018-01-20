@@ -4,11 +4,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import {FormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule,HTTP_INTERCEPTORS} from "@angular/common/http";
 import {TodoService} from "./services/todo.service";
 
 import { LoginComponent } from './login/login.component';
 import {UserService} from "./services/users.service";
+import {AuthInterceptor} from "./services/interceptors/auth.service";
 
 
 
@@ -21,7 +22,15 @@ import {UserService} from "./services/users.service";
   imports: [
     BrowserModule,NgbModule.forRoot(),FormsModule,HttpClientModule
   ],
-  providers: [TodoService,UserService],
+  providers: [
+    TodoService,
+    UserService,
+      {
+        provide:HTTP_INTERCEPTORS,
+        useClass:AuthInterceptor,
+        multi:true
+      }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

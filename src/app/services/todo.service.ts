@@ -4,8 +4,8 @@
 
 import ToDo from '../AppModels/todo.model';
 import {Observable} from 'rxjs/Rx';
-import {HttpClient,HttpErrorResponse} from '@angular/common/http';
-import {Response} from '@angular/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams,HTTP_INTERCEPTORS } from '@angular/common/http';
+import {Response, RequestOptions} from '@angular/http';
 import {Injectable} from '@angular/core';
 import  'rxjs/add/operator/map';
 
@@ -21,13 +21,20 @@ export class TodoService{
 
   //create todo,takes a todo object
   createTodo(todo:ToDo):Observable<any>{
-    return this.httpClient.post(`${this.todoUrl}`,todo);
+    return this.httpClient.post(`${this.todoUrl}`,todo,{
+      headers: new HttpHeaders().set('x-access-token', localStorage.getItem('token'))
+    });
   }
 
   //read todo,no arguments are needed
 
   getToDos():Observable<ToDo[]>{
-    return this.httpClient.get(this.todoUrl)
+
+    var headers = new HttpHeaders();
+    headers.append('x-access-token',localStorage.getItem('token'));
+
+    console.log(localStorage.getItem('token'));
+    return this.httpClient.get(this.todoUrl,{headers:headers})
       .map(res=>{
         return res['data'].docs as ToDo[];
       })

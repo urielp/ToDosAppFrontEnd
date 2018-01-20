@@ -13,7 +13,7 @@ import {_catch} from "rxjs/operator/catch";
 export class UserService {
 
   api_url = 'http://localhost:3000';
-  users = `${this.api_url}/api/users`;
+  users = `${this.api_url}/login`;
 
 
   api2_url = 'http://localhost:3000';
@@ -39,11 +39,18 @@ export class UserService {
     try {
       console.log(`${this.users}/authenticate`);
       return this.httpClient.post(`${this.users}/authenticate`,user)
-        .map(res=> {
-         return res;
+        .map((res)=> {
+          if(res)
+          {
+            console.log(res);
+            return res;
+          }
+          else{
+            console.log(res);
+          }
         });
     }
-    catch(exception){console.log(exception.message);}
+    catch(exception){console.log("here");}
   }
 
   getUser(user:User):Observable<User>{

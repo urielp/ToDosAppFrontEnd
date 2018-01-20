@@ -22,18 +22,18 @@ export class AppComponent implements OnInit{
   editmode:boolean=false;
 
   ngOnInit(){
-    this.todoService.getToDos()
-      .subscribe(todos=>{
-        this.todolist=todos;
-        console.log(todos);
-      })
+
+    this.login({username:'Uriel2',password:12345});
+
   }
 
   login(user){
 
     console.log(user);
     this.userService.login(user).subscribe(data=>{
-      console.log("Data:" +data);
+      console.log(data);
+      localStorage.setItem('token',data.data.data);
+   
     });
   }
   getUser(user:User){
@@ -77,6 +77,13 @@ export class AppComponent implements OnInit{
     });
   }
 
+  getSomthing(){
+    this.todoService.getToDos()
+      .subscribe(todos=>{
+        this.todolist=todos;
+        console.log(todos);
+      })
+  }
   editTodo(todo:ToDo){
 
     this.editmode=true;
