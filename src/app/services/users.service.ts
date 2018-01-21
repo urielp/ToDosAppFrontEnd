@@ -2,65 +2,92 @@
  * Created by parientu on 1/16/2018.
  */
 import {Observable} from 'rxjs/Rx';
-import {HttpClient,HttpErrorResponse} from '@angular/common/http';
-import {Response} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import  'rxjs/add/operator/map';
 import User from '../AppModels/user.model';
-import {_catch} from "rxjs/operator/catch";
+
 
 @Injectable()
 export class UserService {
 
-  api_url = 'http://localhost:3000';
-  users = `${this.api_url}/login`;
+  private api_url = 'http://localhost:3000';
+  private users = `${this.api_url}/login`;
 
 
-  api2_url = 'http://localhost:3000';
-  todoUrl = `${this.api_url}/api/todos`;
+  constructor(private httpClient: HttpClient) {
+  }
 
-
-  constructor(private httpClient:HttpClient){}
-
-  getToDos(){
+  getToDos() {
     console.log("Hello");
-    try{
-    return this.httpClient.get('http://localhost:3000/api/users').subscribe(data=>{
-      console.log(data);
-    });
+    try {
+      return this.httpClient.get('http://localhost:3000/api/users').subscribe(data=> {
+        console.log(data);
+      });
 
     }
-    catch(exception){
+    catch (exception) {
       console.log(exception);
     }
   }
 
-  login(user):Observable<any>{
+  login(user): Observable<any> {
     try {
       console.log(`${this.users}/authenticate`);
-      return this.httpClient.post(`${this.users}/authenticate`,user)
+      return this.httpClient.post(`${this.users}/authenticate`, user)
         .map((res)=> {
-          if(res)
-          {
+          if (res) {
             console.log(res);
             return res;
           }
-          else{
+          else {
             console.log(res);
           }
         });
     }
-    catch(exception){console.log("here");}
+    catch (exception) {
+      console.log("here");
+    }
   }
 
-  getUser(user:User):Observable<User>{
+  getUser(user: User): Observable<User> {
     try {
-      return this.httpClient.get<User>(`${this.users}/user/`+user._id)
+      return this.httpClient.get<User>(`${this.users}/user/` + user._id)
         .map(res=> {
           console.log(res);
           return res['data'].docs as User;
         });
     }
-    catch(exception){console.log(exception.message);}
+    catch (exception) {
+      console.log(exception.message);
+    }
+  }
+
+  getUsersList(): Observable<any> {
+    try {
+      return this.httpClient.get('http://localhost:3000/api/users/usersList')
+        .map(res=> {
+          console.log('My response');
+          console.log(res['success']);
+          if( res['success']=== true){
+            console.log('response ok');
+            var dataToreturn=res['data'];
+            return {
+              success:true,
+              data:dataToreturn,
+              message:'Great!'}
+          }
+          else{
+            console.log("response not ok");
+            return {
+              success:false,
+              data:{},
+              message:'Oy Vai !!\n'+res['message']}
+          }
+        });
+    }
+    catch (exception) {
+      console.log(exception.message);
+    }
   }
 }

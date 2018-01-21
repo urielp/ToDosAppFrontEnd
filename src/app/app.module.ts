@@ -10,6 +10,7 @@ import {TodoService} from "./services/todo.service";
 import { LoginComponent } from './login/login.component';
 import {UserService} from "./services/users.service";
 import {AuthInterceptor} from "./services/interceptors/auth.service";
+import { UsersComponent } from './users/users.component';
 
 
 
@@ -17,7 +18,9 @@ import {AuthInterceptor} from "./services/interceptors/auth.service";
   declarations: [
     AppComponent,
 
-    LoginComponent
+    LoginComponent,
+
+    UsersComponent
   ],
   imports: [
     BrowserModule,NgbModule.forRoot(),FormsModule,HttpClientModule
