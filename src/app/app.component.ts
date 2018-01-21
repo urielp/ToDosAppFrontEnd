@@ -3,6 +3,7 @@ import {TodoService} from "./services/todo.service";
 import ToDo from "./AppModels/todo.model";
 import {UserService} from "./services/users.service";
 import User from "./AppModels/user.model";
+import {error} from "util";
 
 @Component({
   selector: 'app-root',
@@ -41,7 +42,7 @@ export class AppComponent implements OnInit{
     console.log("getUser-app.component");
     this.userService.getUser(user).subscribe(data=>{
       console.log(data);
-    });
+    })
 
   }
   create() {
@@ -81,8 +82,15 @@ export class AppComponent implements OnInit{
   getSomthing(){
     this.todoService.getToDos()
       .subscribe(todos=>{
-        this.todolist=todos;
         console.log(todos);
+        if(todos){
+        console.log(todos)
+          this.todolist=todos;
+        }
+        else
+          alert(todos.message);
+
+
       })
   }
   editTodo(todo:ToDo){

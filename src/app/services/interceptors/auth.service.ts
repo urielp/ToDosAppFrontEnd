@@ -3,6 +3,7 @@ import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders} from 
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/throw'
 import 'rxjs/add/operator/catch';
+import {HttpParams} from "@angular/common/http";
 
 
 @Injectable()
@@ -15,9 +16,19 @@ export class AuthInterceptor implements HttpInterceptor {
 
 // Clone the request to add the new header.
    // const authReq = req.clone({ headers: req.headers.set("headerName","headerValue")});
+    let params = new HttpParams();
+    params = params.append('var1', '11');
+    params = params.append('var2', '22');
+console.log('req url' +req.url );
+    const authReq = req.clone(
+      {
 
-    const authReq = req.clone({ headers: req.headers.set('x-access-token', 'Bearer ' + {}) });
+        headers: req.headers.set('x-access-token', localStorage.getItem('token'))
 
+      }
+      );
+
+    console.log(authReq.params);
     console.log("Sending request with new header now ...");
     console.log(authReq);
 

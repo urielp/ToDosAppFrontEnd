@@ -27,16 +27,22 @@ export class TodoService{
   }
 
   //read todo,no arguments are needed
-
-  getToDos():Observable<ToDo[]>{
-
-    var headers = new HttpHeaders();
-    headers.append('x-access-token',localStorage.getItem('token'));
+  getToDos():Observable<any> {
 
     console.log(localStorage.getItem('token'));
     return this.httpClient.get(this.todoUrl)
       .map(res=>{
-        return res['data'].docs as ToDo[];
+        console.log(res);
+
+        if( res['data'].docs){
+          console.log('response ok');
+
+          return res['data'].docs as ToDo[];
+        }
+        else{
+          console.log("response not ok");
+            return res
+        }
       })
   }
 
