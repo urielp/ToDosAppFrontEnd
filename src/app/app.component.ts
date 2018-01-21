@@ -83,9 +83,9 @@ export class AppComponent implements OnInit{
     this.todoService.getToDos()
       .subscribe(todos=>{
         console.log(todos);
-        if(todos){
+        if(todos.success){
         console.log(todos)
-          this.todolist=todos;
+          this.todolist=todos.data;
         }
         else
           alert(todos.message);

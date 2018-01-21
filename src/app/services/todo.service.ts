@@ -36,8 +36,11 @@ export class TodoService{
 
         if( res['data'].docs){
           console.log('response ok');
-
-          return res['data'].docs as ToDo[];
+          var dataToreturn=res['data'].docs as ToDo[];
+          return {
+            success:true,
+            data:dataToreturn,
+            message:'Great!'}
         }
         else{
           console.log("response not ok");
